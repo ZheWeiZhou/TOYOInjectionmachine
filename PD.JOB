@@ -1,0 +1,19 @@
+JOB pd RESPONSE "\\DESKTOP-PGNNJFG\command\data\pd.log"; 
+REPORT spc 
+APPEND "\\DESKTOP-PGNNJFG\command\data\spc.dat" 
+START IMMEDIATE 
+STOP NEVER 
+CYCLIC TIME 00:00:01 // sample data every 10 minutes 
+SAMPLES 10 
+SESSIONS 30 
+PARAMETERS
+DATE,
+TIME,
+@SetVelInj_V_0[1],
+@SetVelInj_V_1[1],
+@SetVelInj_V_2[1],
+@SetVelInj_V_3[1],
+@SetVelInj_V_4[1],
+@SetVelInj_V_5[1],
+@SetVelInj_V_6[1],
+@SetPrsInj_P_9[1],
