@@ -1,6 +1,6 @@
-JOB pd RESPONSE "\\DESKTOP-PGNNJFG\command\data\pd.log"; 
+JOB pd RESPONSE "\\NTWK71\Euromap63\data\pd.log"; 
 REPORT spc 
-APPEND "\\DESKTOP-PGNNJFG\command\data\spc.dat" 
+APPEND "\\NTWK71\Euromap63\data\spc.dat" 
 START IMMEDIATE 
 STOP NEVER 
 CYCLIC TIME 00:00:01 // sample data every 10 minutes 

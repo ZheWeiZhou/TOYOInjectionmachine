@@ -77,7 +77,7 @@ class toyoagent:
                     "Act_ij_pressure7":'',
                     "Min_ij_pressure":'',
                     "Min_ij_speed":'',
-                    "cycle_count":''
+                    "cycle_count":'',
                 }
         try:
             content = 0
@@ -89,6 +89,31 @@ class toyoagent:
                 for i in range(len(machinedata)):
                     keyname       = keylist[i]
                     data[keyname] = machinedata[i]
+            vpset = float(data["VP_pos_set"])
+            origin_pos_set = [float(data["Ij_Start_pos"]),float(data["IJ_pos_set1"]),float(data["IJ_pos_set2"]),float(data["IJ_pos_set3"]),float(data["IJ_pos_set4"]),float(data["IJ_pos_set5"]),float(data["IJ_pos_set6"])]
+            origin_ijv_set = [float(data["Ijv_set1"]),float(data["Ijv_set2"]),float(data["Ijv_set3"]),float(data["Ijv_set4"]),float(data["Ijv_set5"]),float(data["Ijv_set6"]),float(data["Ijv_set7"]),]
+            segcount =0
+            def mask_array(arr,index,value):
+                return [arr[i] if i <index else value for i in range(len(arr))]
+            for i in range(len(origin_pos_set)):
+                if origin_pos_set[i] == vpset:
+                    segcount = i
+            newpos = mask_array(origin_pos_set,segcount,origin_pos_set[segcount])
+            new_ijv_set = mask_array(origin_ijv_set,segcount,0)
+            data["IJ_pos_set1"] = newpos[1]
+            data["IJ_pos_set2"] = newpos[2]
+            data["IJ_pos_set3"] = newpos[3]
+            data["IJ_pos_set4"] = newpos[4]
+            data["IJ_pos_set5"] = newpos[5]
+            data["IJ_pos_set6"] = newpos[6]
+            data["Ijv_set1"]    = new_ijv_set[0]
+            data["Ijv_set2"]    = new_ijv_set[1]
+            data["Ijv_set3"]    = new_ijv_set[2]
+            data["Ijv_set4"]    = new_ijv_set[3]
+            data["Ijv_set5"]    = new_ijv_set[4]
+            data["Ijv_set6"]    = new_ijv_set[5]
+            data["Ijv_set7"]    = new_ijv_set[6]
+
             # Clean spc.dat per hour
             if len(content) > 3600:
                 print("[Message] Detect SPC file row number exceed maximunm limit")
@@ -113,12 +138,13 @@ class toyoagent:
                 # Determine whether data needs to be uploaded to the database.
                 if self.previous_count != currentcount:
                     print("[Message] Detect machine completed the process, Start to upload data to db ... ")
+                    self.previous_count=currentcount
         except Exception as e:
             print(f"[Error] Collect data process crash ... Reason {e}")
             pass
             
 if __name__ == "__main__":
-    agent       = toyoagent('spc.dat')
+    agent       = toyoagent('data/spc.dat')
     agent.send_monitor_command()
     while True:
         agent.collectdata()
