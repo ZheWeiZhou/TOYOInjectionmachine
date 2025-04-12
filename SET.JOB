@@ -1,0 +1,3 @@
+JOB SET RESPONSE "\\TOYOPC2\Euromap63command\data\SET.log"; 
+SET SetStrPlst[1] 105.0
+SET @SetStrInj_S_1[1] 27.0

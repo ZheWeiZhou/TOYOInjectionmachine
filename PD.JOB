@@ -1,6 +1,6 @@
-JOB pd RESPONSE "\\TOYOPC\Euromap63command\data\pd.log"; 
+JOB pd RESPONSE "\\TOYOPC2\Euromap63command\data\pd.log"; 
 REPORT spc 
-APPEND "\\TOYOPC\Euromap63command\data\spc.dat" 
+APPEND "\\TOYOPC2\Euromap63command\data\spc.dat" 
 START IMMEDIATE 
 STOP NEVER 
 CYCLIC TIME 00:00:01 // sample data every 10 minutes 
